@@ -5,7 +5,7 @@ import "./App.css"
 
 function App() {
   const [ocrData, setOcrData] = useState("")
-  
+
   // 子コンポーネントからOCRデータをPropsとして受け取る
   const onReadOcrData = (ocrData) => {
     setOcrData(ocrData)
@@ -18,12 +18,12 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header"> Welcome OCR App</header>
+      <header> Welcome OCR App</header>
       <OcrReader
         onReadOcrData={onReadOcrData}
         onRemoveClicked={onRemoveClicked}
       />
-      {ocrData && <SmsSender readText={ocrData}/>}
+      {ocrData && <SmsSender readText={ocrData} />}
     </div>
   );
 }
