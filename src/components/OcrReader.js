@@ -40,6 +40,45 @@ function OcrReader({onReadOcrData, onRemoveClicked}){
     onRemoveClicked()
     setOcrState(STATUSES.IDLE)
   }
+return (
+  <div>
+    {selectedImage && (
+      <div>
+        <img src={URL.createObjectURL(selectedImage)} alt="scanned file"  />
+      </div>
+    )}
+    <div>
+      {selectedImage?
+        <div className="button-container">
+          <button onClick={readImageText}>画像をOCR処理する</button>
+          <button
+            className="remove-button"
+            disabled={ocrState === STATUSES.PENDING}
+            onClick={handleRemoveClicked}
+          >
+              別の画像を使用する
+          </button>
+        </div>
+        :
+        <>
+          <p>画像ファイルをアップロードしてください。</p>
+          <input
+            type="file"
+            name="ocr-image"
+            onChange={(event) => {
+              setSelectedImage(event.target.files[0])
+            }}
+          />
+          <p>対応フォーマット:bmp、jpg、png、pbm</p>
+        </>
+      }
+    </div>
+    <div className="status">
+      {ocrState}
+    </div>
+    <br />
+  </div>
+)
 }
 
 export default OcrReader
