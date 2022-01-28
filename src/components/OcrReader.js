@@ -33,6 +33,13 @@ function OcrReader({onReadOcrData, onRemoveClicked}){
       setOcrState(STATUSES.FAILED)
     }
   }
+
+  // 別の画像を使用するボタンを押した時の処理
+  const handleRemoveClicked = () => {
+    setSelectedImage(null)
+    onRemoveClicked()
+    setOcrState(STATUSES.IDLE)
+  }
 }
 
 export default OcrReader
