@@ -10,7 +10,7 @@ const STATUSES = {
   SUCCEEDED: "メッセージ送信完了",
 }
 
-function SmsSender ({readText}) {
+function SmsSender({ readText }) {
   const [smsText, setSmsText] = useState(readText)
   const [iti, setIti] = useState(null)
   const [smsSendingStatus, setSmsSendingStatus] = useState(STATUSES.IDLE)
@@ -49,6 +49,41 @@ function SmsSender ({readText}) {
       setSmsSendingStatus(STATUSES.FAILED)
     })
   }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    sendSMS()
+  }
+
+  return (
+    <div>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div>検知されたテキストを編集:</div>
+        <div>
+          <textarea
+            rows="15"
+            cols="45"
+            name="name"
+            defaultValue={readText}
+            onChange={e => setSmsText(e.target.value)}
+          />
+        </div>
+        <input
+          ref={inputRef}
+          id="phone"
+          name="phone"
+          type="tel"
+        />
+        <div>
+          <button disabled={smsSendingStatus == "Sending Message..."} type="submit">SMSメッセージを送信</button>
+        </div>
+      </form>
+      <div className="status">
+        {smsSendingStatus}
+      </div>
+    </div>
+  )
 
 }
 
